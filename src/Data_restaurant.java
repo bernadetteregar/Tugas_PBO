@@ -5,7 +5,7 @@ class Restaurant {
     public int id_restaurant;
     public String nama_restaurant;
     public String alamat_restaurant;
-    static List<Menu> restaurant_menu;
+    List<Menu> restaurant_menu;
     static List<Restaurant> restaurant_list = new ArrayList<>();
 
 
@@ -33,7 +33,7 @@ class Restaurant {
     public List<Menu> getRestaurant_menu() {
         return restaurant_menu;
     }
-    public static List<Restaurant> getrestaurantList() {
+    public static List<Restaurant> getRestaurant_list() {
         return restaurant_list;
     }
 
@@ -50,7 +50,7 @@ class Restaurant {
         this.alamat_restaurant = newAlamat_restaurant;
     }
 
-    public void setRestaurant_menu(List newRestaurant_menu) {
+    public void setRestaurant_menu(List<Menu> newRestaurant_menu) {
         this.restaurant_menu = newRestaurant_menu;
     }
 
@@ -59,6 +59,7 @@ class Restaurant {
         public String tipe_menu;
         public String nama_menu;
         public int harga;
+
 
         //method
         public Menu(int id_menu, String tipe, String nama_menu, int harga) {
@@ -107,13 +108,12 @@ class Restaurant {
 
             System.out.print("Masukkan Nama Restaurant: ");
             String nama = scanner.nextLine();
-
             System.out.print("Masukkan Alamat Restaurant: ");
             String alamat = scanner.nextLine();
 
             List<Menu> menu_list = new ArrayList<>();
             while (true) {
-                System.out.print("Masukkan Nama Menu (Ketik 'done' jika sudah selesai menambah menu");
+                System.out.print("Masukkan Nama Menu (Ketik 'done' jika sudah selesai menambah menu): ");
                 String nama_menu = scanner.nextLine();
                 if (nama_menu.equals("done")) {
                     break;
@@ -122,19 +122,21 @@ class Restaurant {
                 String tipe_menu = scanner.nextLine();
                 System.out.print("Masukkan Harga Menu: ");
                 int harga_menu = scanner.nextInt();
+                scanner.nextLine();
                 menu_list.add(new Menu(menu_list.size() + 1, tipe_menu, nama_menu, harga_menu));
             }
             restaurant_list.add(new Restaurant(restaurant_list.size() + 1, nama, alamat, menu_list));
         }
 
         static void lihat_restaurant() {
-            for (Restaurant restaurant : Restaurant.getrestaurantList()) {
-                System.out.println(restaurant.getNama_restaurant() + "-" + restaurant.getAlamat_restaurant());
+            for (Restaurant restaurant : Restaurant.getRestaurant_list()) {
+                System.out.println(restaurant.getId_restaurant() + ". " + restaurant.getNama_restaurant() + "-" + restaurant.getAlamat_restaurant());
                 for (Menu menu : restaurant.getRestaurant_menu()) {
-                    System.out.println(" " + menu.getTipe_menu() + "-" + menu.getNama_menu() + "-" + menu.getHarga());
+                    System.out.println( menu.getId_menu() + ". " + menu.getTipe_menu() + "-" + menu.getNama_menu() + "-" + menu.getHarga());
                 }
             }
         }
+        
 
     }
 }
