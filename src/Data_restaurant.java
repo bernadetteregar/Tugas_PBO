@@ -5,7 +5,9 @@ class Restaurant {
     public int id_restaurant;
     public String nama_restaurant;
     public String alamat_restaurant;
-    List<Menu> restaurant_menu;
+    static List<Menu> restaurant_menu;
+    static List<Restaurant> restaurant_list = new ArrayList<>();
+
 
     //Method
     public Restaurant(int id, String nama, String alamat, List<Menu> restaurant_menu) {
@@ -15,7 +17,7 @@ class Restaurant {
         this.restaurant_menu = restaurant_menu;
     }
 
-    //Getter
+    //Getter Restaurant
     public int getId_restaurant() {
         return id_restaurant;
     }
@@ -31,8 +33,11 @@ class Restaurant {
     public List<Menu> getRestaurant_menu() {
         return restaurant_menu;
     }
+    public static List<Restaurant> getrestaurantList() {
+        return restaurant_list;
+    }
 
-    //setter
+    //setter restaurant
     public void setId_restaurant(int newId_restaurant) {
         this.id_restaurant = newId_restaurant;
     }
@@ -63,7 +68,7 @@ class Restaurant {
             this.harga = harga;
         }
 
-        //getter
+        //getter menu
         public int getId_menu() {
             return id_menu;
         }
@@ -80,7 +85,7 @@ class Restaurant {
             return harga;
         }
 
-        //setter
+        //setter menu
         public void setId_menu(int newId_menu) {
             this.id_menu = newId_menu;
         }
@@ -97,28 +102,42 @@ class Restaurant {
             this.harga = newHarga;
         }
 
-        //Print Out
-        public static void main(String[] args) {
-            List<Restaurant> restaurantList = new ArrayList<>();
-            List<Restaurant.Menu> menu1 = new ArrayList<>();
-            menu1.add(new Menu(1, "Food", "Nasi", 5000));
-            Restaurant restaurant1 = new Restaurant(1, "Rumah Makan Padang", "Limo", menu1);
-            restaurantList.add(restaurant1);
-            System.out.println(restaurant1.getId_restaurant() + "-" + restaurant1.getNama_restaurant() + "-" + restaurant1.getAlamat_restaurant() + "-" + restaurant1.getRestaurant_menu());
+        static void tambah_restaurant() {
+            Scanner scanner = new Scanner(System.in);
 
+            System.out.print("Masukkan Nama Restaurant: ");
+            String nama = scanner.nextLine();
 
-                for (Restaurant restaurant : restaurantList) {
-                    System.out.println(restaurant.getNama_restaurant() + "-" + restaurant.getAlamat_restaurant());
-                    for (Menu menu : restaurant.getRestaurant_menu()) {
-                        System.out.println(" " + menu.getTipe_menu() + "-" + menu.getNama_menu() + "-" + menu.getHarga());
-                    }
+            System.out.print("Masukkan Alamat Restaurant: ");
+            String alamat = scanner.nextLine();
+
+            List<Menu> menu_list = new ArrayList<>();
+            while (true) {
+                System.out.print("Masukkan Nama Menu (Ketik 'done' jika sudah selesai menambah menu");
+                String nama_menu = scanner.nextLine();
+                if (nama_menu.equals("done")) {
+                    break;
+                }
+                System.out.print("Masukkan Tipe Menu (Food/Beverage): ");
+                String tipe_menu = scanner.nextLine();
+                System.out.print("Masukkan Harga Menu: ");
+                int harga_menu = scanner.nextInt();
+                menu_list.add(new Menu(menu_list.size() + 1, tipe_menu, nama_menu, harga_menu));
+            }
+            restaurant_list.add(new Restaurant(restaurant_list.size() + 1, nama, alamat, menu_list));
+        }
+
+        static void lihat_restaurant() {
+            for (Restaurant restaurant : Restaurant.getrestaurantList()) {
+                System.out.println(restaurant.getNama_restaurant() + "-" + restaurant.getAlamat_restaurant());
+                for (Menu menu : restaurant.getRestaurant_menu()) {
+                    System.out.println(" " + menu.getTipe_menu() + "-" + menu.getNama_menu() + "-" + menu.getHarga());
                 }
             }
         }
 
+    }
 }
-
-
 
 
 
