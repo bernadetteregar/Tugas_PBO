@@ -10,7 +10,7 @@ public class Order {
     private int jumlah;
     private double jarak;
     private int total_harga;
-    private List<Order> orders_list;
+    private static List<Order> orders_list = new ArrayList<>();
 
     //constructor
     public Order(int id_restaurant, int id_menu, int jumlah, double jarak, int total_harga) {
@@ -42,7 +42,7 @@ public class Order {
         return total_harga;
     }
 
-    public List<Order> getOrders_list() {
+    public static List<Order> getOrders_list() {
         return orders_list;
     }
 
@@ -75,11 +75,14 @@ public class Order {
     //method
     public void buat_pesanan() {
         Scanner scanner = new Scanner(System.in);
-        List<Order> orders = new ArrayList<>();
 
+        System.out.print("Silahkan pilih Restauran: ");
         System.out.print("Masukkan Id Restaurant: ");
         int id_restaurant = scanner.nextInt();
         Restaurant restaurant = null;
+
+        System.out.print("Masukkan Jarak (km): ");
+        double jarak = scanner.nextDouble();
 
         for (Restaurant x : Restaurant.getRestaurant_list()) {
             if (x.getId_restaurant() == id_restaurant) {
@@ -101,49 +104,14 @@ public class Order {
 
             System.out.print("Masukkan Banyak Pesanan: ");
             int jumlah = scanner.nextInt();
-            System.out.print("Masukkan Jarak (km): ");
-            double jarak = scanner.nextDouble();
-
 
             //menambah pesanan ke list order
             Order order = new Order(id_restaurant, id_menu, jumlah, jarak, total_harga);
-            orders.add(order);
+            orders_list.add(order);
             System.out.println("Pesanan Telah Berhasil Ditambahkan; ");
         }
     }
 
-    /*public void lihat_pesanan(){
-        System.out.println("Daftar Pesanan yang Berhasil DIbuat ");
-        for (Order order : orders_list){
-            System.out.println("Id Restaurant: " + order.getId_restaurant());
-            System.out.println("Id Menu: " + order.getId_menu());
-            System.out.println("Jumlah: " + order.getJumlah());
-            System.out.println("Jarak: " + order.getJarak() + "km");
-
-
-            //menampilkan harga dari menu
-            int harga_menu = 0;
-            Restaurant restaurant = null;
-            for (Restaurant x : Restaurant.getRestaurant_list()){
-                if(x.getId_restaurant() == order.getId_restaurant()){
-                    restaurant = x;
-                    break;
-                }
-            }
-            if (restaurant != null){
-                for (Restaurant.Menu y : restaurant.getRestaurant_menu()){
-                    if(y.getId_menu() == order.getId_menu()){
-                        harga_menu = y.getHarga();
-                        break;
-                    }
-                }
-            }
-            System.out.println("Harga Menu: " + harga_menu);
-
-            System.out.println("-------------------");
-            System.out.println("Total Harga: " + order.getTotal_harga());
-        }
-    }*/
 }
 
 

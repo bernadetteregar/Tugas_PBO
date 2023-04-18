@@ -3,7 +3,9 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) {
+
         Order obj = new Order(0,0,0,0.0,0);
         Scanner scanner = new Scanner(System.in);
         String username, password;
@@ -45,7 +47,7 @@ public class Main {
                                     Restaurant.Menu.tambah_restaurant();
                                     break;
                                 case 3:
-                                    Restaurant.Menu.lihat_restaurant(); //belum ditambahkan hapus_restaurant
+                                    Restaurant.Menu.hapus_restaurant();
                                     break;
                                 case 4:
                                     System.out.println("Akan Kembali ke Menu Login");
@@ -76,11 +78,52 @@ public class Main {
                                 case 2:
                                     obj.buat_pesanan();
                                     break;
-                                case 3:
-                                    obj.lihat_pesanan();
+                                case 3: {
+                                    System.out.println("Daftar Pesanan yang Berhasil DIbuat ");
+
+                                    int total_harga_pesanan = 0;
+
+                                    for (Order order : Order.getOrders_list()) {
+                                        System.out.println("Id Restaurant: " + order.getId_restaurant());
+                                        System.out.println("Id Menu: " + order.getId_menu());
+                                        System.out.println("Jumlah: " + order.getJumlah());
+                                        System.out.println("Jarak: " + order.getJarak() + "km");
+
+
+                                        //menampilkan harga dari menu
+                                        int harga_menu = 0;
+                                        Restaurant restaurant = null;
+                                        for (Restaurant x : Restaurant.getRestaurant_list()) {
+                                            if (x.getId_restaurant() == order.getId_restaurant()) {
+                                                restaurant = x;
+                                                break;
+                                            }
+                                        }
+                                        if (restaurant != null) {
+                                            for (Restaurant.Menu y : restaurant.getRestaurant_menu()) {
+                                                if (y.getId_menu() == order.getId_menu()) {
+                                                    harga_menu = y.getHarga();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        System.out.println("Harga Menu: " + harga_menu);
+
+                                        int total_harga_pesanan_per_item = harga_menu * order.getJumlah();
+                                        if (order.getJarak() > 2) {
+                                            int biaya_jarak = (int) (3000 * (order.getJarak() - 2));
+                                            System.out.println("Biaya Jarak: " + biaya_jarak);
+                                            total_harga_pesanan_per_item += biaya_jarak;
+                                        }
+                                        System.out.println("Total Harga: " + total_harga_pesanan_per_item);
+                                        total_harga_pesanan += total_harga_pesanan_per_item;
+                                        System.out.println("-------------------");
+                                    }
+                                    System.out.println("Total Harga Pesanan: " + total_harga_pesanan);
                                     break;
+                                }
                                 case 4:
-                                    System.out.println("Akan Kembali ke Menu Login");
+                                    System.out.println("Akan Kembali ke Menu Login\n");
                                     break;
                                 default:
                                     System.out.println("Pilihan yang Anda Masukkan Salah, Pilih Menu (1/2/3/4)");
