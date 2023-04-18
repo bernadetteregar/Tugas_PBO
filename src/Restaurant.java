@@ -103,7 +103,7 @@ public class Restaurant {
             this.harga = newHarga;
         }
 
-        static void tambah_restaurant() {
+        public static void tambah_restaurant() {
             Scanner scanner = new Scanner(System.in);
 
             System.out.print("Masukkan Nama Restaurant: ");
@@ -113,7 +113,7 @@ public class Restaurant {
 
             List<Menu> menu_list = new ArrayList<>();
             while (true) {
-                System.out.print("Masukkan Nama Menu (Ketik 'done' jika sudah selesai menambah menu): ");
+                System.out.print("\nMasukkan Nama Menu (Ketik 'done' jika sudah selesai menambah menu): ");
                 String nama_menu = scanner.nextLine();
                 if (nama_menu.equals("done")) {
                     break;
@@ -128,11 +128,11 @@ public class Restaurant {
             restaurant_list.add(new Restaurant(restaurant_list.size() + 1, nama, alamat, menu_list));
         }
 
-        static void lihat_restaurant() {
+        public static void lihat_restaurant() {
             for (Restaurant restaurant : Restaurant.getRestaurant_list()) {
                 System.out.println("<<<Restaurant>>>");
                 System.out.println(restaurant.getId_restaurant() + ". " + restaurant.getNama_restaurant());
-                System.out.println("Alamat: " + restaurant.getAlamat_restaurant());
+                System.out.println("   " + "Alamat: " + restaurant.getAlamat_restaurant());
                 for (Menu menu : restaurant.getRestaurant_menu()) {
                     System.out.println( "   " + menu.getId_menu() + ". " + menu.getTipe_menu() + "- " + menu.getNama_menu());
                     System.out.println( "        " + "Rp" + menu.getHarga());
@@ -140,7 +140,26 @@ public class Restaurant {
             }
         }
 
+        public static void hapus_restaurant(){
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Masukkan Id Restaurant yang ingin dihapus: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
 
+            boolean restaurant_dapat = false;
+            for(Restaurant restaurant : restaurant_list){
+                if(restaurant.getId_restaurant() == id){
+                    restaurant_dapat = true;
+                    restaurant_list.remove(restaurant);
+                    System.out.println("Restaurant dengan Id" + id + "telah berhasil dihapus.");
+                    break;
+                }
+            }
+
+            if (!restaurant_dapat){
+                System.out.println("Tidak ditemukan Restaurant dengan Id" + id);
+            }
+        }
     }
 }
 
