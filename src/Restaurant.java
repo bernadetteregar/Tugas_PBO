@@ -1,12 +1,12 @@
-import java.lang.reflect.Array;
+import java.awt.desktop.SystemSleepEvent;
 import java.util.*;
 
-class Restaurant {
-    public int id_restaurant;
-    public String nama_restaurant;
-    public String alamat_restaurant;
-    List<Menu> restaurant_menu;
-    static List<Restaurant> restaurant_list = new ArrayList<>();
+public class Restaurant {
+    private int id_restaurant;
+    private String nama_restaurant;
+    private String alamat_restaurant;
+    private List<Menu> restaurant_menu;
+    private static List<Restaurant> restaurant_list = new ArrayList<>();
 
 
     //Method
@@ -58,7 +58,7 @@ class Restaurant {
         public int id_menu;
         public String tipe_menu;
         public String nama_menu;
-        public int harga;
+        private int harga;
 
 
         //method
@@ -130,13 +130,16 @@ class Restaurant {
 
         static void lihat_restaurant() {
             for (Restaurant restaurant : Restaurant.getRestaurant_list()) {
-                System.out.println(restaurant.getId_restaurant() + ". " + restaurant.getNama_restaurant() + "-" + restaurant.getAlamat_restaurant());
+                System.out.println("<<<Restaurant>>>");
+                System.out.println(restaurant.getId_restaurant() + ". " + restaurant.getNama_restaurant());
+                System.out.println("Alamat: " + restaurant.getAlamat_restaurant());
                 for (Menu menu : restaurant.getRestaurant_menu()) {
-                    System.out.println( menu.getId_menu() + ". " + menu.getTipe_menu() + "-" + menu.getNama_menu() + "-" + menu.getHarga());
+                    System.out.println( "   " + menu.getId_menu() + ". " + menu.getTipe_menu() + "- " + menu.getNama_menu());
+                    System.out.println( "        " + "Rp" + menu.getHarga());
                 }
             }
         }
-        
+
 
     }
 }
